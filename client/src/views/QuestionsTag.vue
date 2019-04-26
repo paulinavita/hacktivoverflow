@@ -36,8 +36,9 @@ export default {
               headers : {token: localStorage.getItem('token')}
           })
           .then(({data}) => {
-                console.log(data, '???')
+                // console.log(data, '???')
                 this.foundtag = data
+                this.$router.push({ name: 'question-tag', params: { tag: this.$route.params.tag }})
           })
           .catch(err => {
               Swal.fire({

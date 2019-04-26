@@ -9,7 +9,7 @@ const routes= require('./routes')
 const schedule = require('./helpers/cronjob')
 
 
-let url = process.env.MONGO_DB_URL
+let url = process.env.MONGO_DB_ATLAS
 mongoose.connect(`${url}`, {useNewUrlParser : true, useCreateIndex : true})
 .then(() =>{
     console.log(`======> Mongo DB Connected <=====`);
