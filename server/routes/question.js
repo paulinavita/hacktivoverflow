@@ -5,6 +5,7 @@ const {authorizationQuestion} = require('../middleware/authQuestion')
 
 router.get('/', QuestionController.findAll)
 router.get('/user/:userId', QuestionController.findByUser)
+router.post('/tag', authentication,  QuestionController.findByTag)
 router.get('/:questionId', QuestionController.findOne)
 router.post('/', authentication, QuestionController.createQuestion)
 router.patch('/upvote/:questionId', authentication, QuestionController.upVote)

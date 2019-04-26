@@ -23,6 +23,8 @@ import QuestionCard from "../components/QuestionCard";
 import AnswerCard from "../components/AnswerCard";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import {mapState, mapActions} from 'vuex'
+import Swal from 'sweetalert2'
+
 export default {
   data() {
     return {
@@ -83,22 +85,29 @@ export default {
             headers : {token : localStorage.getItem('token')}
         })
         .then(({data}) => {
-
-            console.log('sukes ke jawab!!');
+            Swal.fire({
+            type: 'success',
+            title: 'You post an answer',
+          })
+            // console.log('sukes ke jawab!!');
             this.getDetailsOnQuestion()
             this.getAnswersOnThisQuestion()
             this.fill = ''
 
         })
         .catch(err => {
-            console.log(err.response, 'gagal jawab!!');
+          Swal.fire({
+            type: 'error',
+            title: 'Something is wrong..',
+          })
+            // console.log(err.response, 'gagal jawab!!');
         })
     }
   },
   created() {
     this.getDetailsOnQuestion();
     this.getAnswersOnThisQuestion();
-    console.log("masuk sini bosq");
+    // console.log("masuk sini bosq");
   },
   computed: {
     ...mapState(['oneQuestionDetails', 'answersOnThisQuestion'])

@@ -140,8 +140,8 @@ export const store = new Vuex.Store({
         });
     }
   }, watch: {
-    listQuestions() {
+    // listQuestions() {
 
-    }
+    // }
   },
 });

@@ -33,7 +33,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getQuestions");
-    console.log(this.$route, 'dapet paramsnya');  
+    // console.log(this.$route, 'dapet paramsnya');  
   },
   computed: {
   ...mapState(['listQuestions']),

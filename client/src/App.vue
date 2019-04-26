@@ -25,9 +25,9 @@
               <!-- <v-flex>
                 <v-text-field v-model="searchBox" label="Search" placeholder="Search" box></v-text-field>
               </v-flex>-->
-             <li>
+             <li v-if="this.$store.state.isLogin" >
                <p class="white--text">My Preferred Discussion :</p>
-               <v-chip v-for="(tag, index) in tags" :key="index">{{tag}}</v-chip>
+               <v-chip v-for="(tag, index) in tags" :key="index"><router-link :to="{ name: 'question-tag', params: { tag: tag }}"> {{tag}} </router-link> </v-chip>
              </li>
              
               <li>

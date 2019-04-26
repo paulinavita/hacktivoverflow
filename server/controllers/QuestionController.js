@@ -18,6 +18,17 @@ class QuestionController {
         })
     }
 
+    static findByTag(req, res) {
+        Question.find({ tags: { "$in" : [req.body.tag]} })
+        .populate('userId')
+        .then((data) => {
+            res.status(200).json(data)
+        })
+        .catch(err => {
+            res.status(400).json(err)
+        })
+    }
+
     static findByUser(req, res) {
         // console.log('keterima pas minta');
         

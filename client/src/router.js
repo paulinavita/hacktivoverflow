@@ -6,7 +6,7 @@ import AskQuestion from './views/AskQuestion.vue'
 import QuestionDetail from './views/QuestionDetail.vue'
 import QuestionsPage from './views/QuestionsPage'
 import EditAnswer from './views/EditAnswer'
-
+import QuestionsTag from './views/QuestionsTag'
 Vue.use(Router)
 
 const router = new Router({
@@ -49,6 +49,14 @@ const router = new Router({
       }]
     },
     {
+      path:'/questions/tag/:tag',
+      name : "question-tag",
+      component : QuestionsTag,
+      meta : {
+        requiresAuth : true
+      }
+    },
+    {
       path : '/edit-question/:id',
       name : 'edit-question',
       component : AskQuestion,
@@ -68,26 +76,26 @@ const router = new Router({
 })
 
 
-// router.beforeEach((to, from, next) => {
-//   // console.log(to, '=====to=======from', from);
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     // console.log('masuk if atass');
-//     if (!localStorage.getItem('token')) {
-//       next({ path: '/' })
-//     } else {
-//       if (to.matched.some(record => record.meta.is_admin)) {
-//         if (localStorage.getItem('role') == 'admin') {
-//           next()
-//         } else {
-//           next({path: '/'})
-//         }
-//       } else {
-//         next()
-//       }
-//     }
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  // console.log(to, '=====to=======from', from);
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // console.log('masuk if atass');
+    if (!localStorage.getItem('token')) {
+      next({ path: '/' })
+    } else {
+      if (to.matched.some(record => record.meta.is_admin)) {
+        if (localStorage.getItem('role') == 'admin') {
+          next()
+        } else {
+          next({path: '/'})
+        }
+      } else {
+        next()
+      }
+    }
+  } else {
+    next()
+  }
+})
 
 export default router

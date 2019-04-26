@@ -113,7 +113,9 @@ export default {
           `/questions/edit/${this.$route.params.id}`,
           {
             title: this.title,
-            description: this.description
+            description: this.description,
+            tags: this.value,
+
           },
           {
             headers: { token: localStorage.getItem("token") }

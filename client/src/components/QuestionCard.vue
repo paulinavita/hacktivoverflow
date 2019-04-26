@@ -110,9 +110,9 @@ export default {
       // this.router.push({name : '/dashboard' })
     },
     upVote(userId) {
-      console.log(this.q._id, "/xxxxxx");
-      console.log("apakah ke klik?");
-      console.log(userId, "nya berapa???");
+      // console.log(this.q._id, "/xxxxxx");
+      // console.log("apakah ke klik?");
+      // console.log(userId, "nya berapa???");
 
       this.axios
         .patch(
@@ -125,10 +125,10 @@ export default {
           // this.$store.dispatch("getDetailsOnThisQuestion", this.q._id);
           this.totalvote = data.upVotes.length - data.downVotes.length
 
-          console.log(data, "berhasil upvote q!!");
+          // console.log(data, "berhasil upvote q!!");
         })
         .catch(err => {
-          console.log(err.response);
+          // console.log(err.response);
 
             Swal.fire({
             type: 'error',
@@ -152,14 +152,14 @@ export default {
           this.totalvote = data.upVotes.length - data.downVotes.length
         })
         .catch(err => {
-          console.log(err.response);
+          // console.log(err.response);
 
           Swal.fire({
             type: "error",
             title: "Oops...",
             text: err.response.data.message
           });
-          console.log(err.response, "error");
+          // console.log(err.response, "error");
         });
     }
   },
