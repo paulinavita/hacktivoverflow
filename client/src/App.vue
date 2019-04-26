@@ -18,14 +18,18 @@
     <v-navigation-drawer id="kiri" flat stateless hide-overlay v-model="drawer" fixed>
       <v-toolbar flat class="transparent">
         <v-list class="pa-0">
-          <img style="margin-left:-110px;" src="./assets/left_logo.png">
+          <img @click="redirect" style="margin-left:-60px; max-height:400px" src="./assets/left_logo.png">
           <!-- <v-list-tile-avatar> -->
           <div class="container align-items right">
             <ul style="list-style: none" align-items-right>
               <!-- <v-flex>
                 <v-text-field v-model="searchBox" label="Search" placeholder="Search" box></v-text-field>
-              </v-flex> -->
-
+              </v-flex>-->
+             <li>
+               <p class="white--text">My Preferred Discussion :</p>
+               <v-chip v-for="(tag, index) in tags" :key="index">{{tag}}</v-chip>
+             </li>
+             
               <li>
                 <v-btn
                   style="background-color:white"
@@ -50,6 +54,12 @@
                   flat
                 >Browse</v-btn>
               </li>
+
+               <li>
+                <v-flex style="width:170px" v-if="this.$route.name ==  'question'" xs12 >
+                  <v-text-field white--text color="white" label="Search..." outline v-model="search"></v-text-field>
+                </v-flex>
+              </li>
             </ul>
           </div>
           <!-- </v-list-tile-avatar> -->
@@ -60,7 +70,11 @@
       </v-list>-->
     </v-navigation-drawer>
     <!-- </v-app> -->
-    <router-view></router-view>
+    <router-view
+    :search="search"
+    >
+
+    </router-view>
     <!-- <OpeningJumbotron v-if="!this.$store.state.isLogin"></OpeningJumbotron> -->
   </v-app>
 </template>
@@ -68,9 +82,14 @@
 <script>
 import ModalLogin from "./components/ModalLogin.vue";
 import ModalRegister from "./components/ModalRegister.vue";
-
+import {mapState} from 'vuex'
 export default {
   name: "App",
+  data() {
+    return {
+      search : ''
+    }
+  },
   components: {
     ModalLogin,
     ModalRegister
@@ -79,6 +98,7 @@ export default {
   created() {
     if (localStorage.getItem("token")) {
       this.$store.commit("persistLoginStatus");
+      this.getUser()
     }
   },
   data() {
@@ -87,8 +107,9 @@ export default {
       drawer: true,
       mini: true,
       right: null,
-      searchBox : ''
-    };
+      search: "",
+      tags : []
+    }
   },
   methods: {
     signOut() {
@@ -102,14 +123,33 @@ export default {
     },
     browse() {
       this.$router.push("/questions");
+    },
+    redirect() {
+      this.$router.push("/");
+    },
+    getUser() {
+      this.axios.get(`/users/user/`, {headers : {token : localStorage.getItem('token')}})
+      .then(({data}) => {
+        // console.log(data);
+        this.tags = data.chosenTags
+      })
+      .catch(err => {
+        console.log(err);
+        
+      })
     }
   }
+  
 };
 </script>
 
 <style scoped>
 .fixed {
   position: fixed;
+}
+
+v-text-field {
+  background-color: white !important
 }
 
 #kiri {

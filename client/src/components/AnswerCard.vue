@@ -1,6 +1,6 @@
 <template>
   <v-flex>
-    <v-card flat>
+    <v-card color="grey lighten-3" flat class="mt-4, mb-4">
       <v-layout row>
         <v-flex xs1>
           <v-btn @click="upVote(ans.userId._id)" flat icon color="pink">
@@ -25,7 +25,7 @@
       <v-layout row>
         <v-card-actions>
           <span
-            style=" background-color:pink"
+            style=" background-color:white"
             class="ml-4 text-align-left"
           >Answered by : {{ans.userId.email.split('@')[0]}}</span>
           <v-spacer> </v-spacer>   

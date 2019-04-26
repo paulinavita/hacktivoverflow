@@ -62,7 +62,7 @@ export default {
   }),
   methods: {
       login() {
-        console.log(this.password, this.email, 'INI ADA GA YA KALO DI KLIK?');   
+        // console.log(this.password, this.email, 'INI ADA GA YA KALO DI KLIK?');   
           this.$store.dispatch('login', {email : this.email, password : this.password})
       }
   },

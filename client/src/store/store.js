@@ -10,14 +10,13 @@ Vue.use(VueSweetalert2);
 export const store = new Vuex.Store({
   state: {
     userId : localStorage.getItem('id'),
+    userTags : [],
     isLogin: false,
     listQuestions: [],
     myQuestionsList: [],
     oneQuestionDetails: '',
     answersOnThisQuestion: []
 
-  },
-  getters: {
 
   },
   mutations: {
@@ -50,6 +49,9 @@ export const store = new Vuex.Store({
     },
     setListAnswersOnThisQuestion(state, details) {
       state.answersOnThisQuestion = details
+    },
+    search(state, payload) {
+      state.listQuestions = payload
     }
     // reducePrice: (state, payload)=> {
     //     setTimeout(function() {
@@ -66,9 +68,7 @@ export const store = new Vuex.Store({
           email: payload.email,
           password: payload.password
         })
-        .then(({
-          data
-        }) => {
+        .then(({ data  }) => {
           context.commit('changeLoginStatus', data)
         })
         .catch(err => {
@@ -139,5 +139,9 @@ export const store = new Vuex.Store({
           console.log(err.response);
         });
     }
-  }
+  }, watch: {
+    listQuestions() {
+
+    }
+  },
 });

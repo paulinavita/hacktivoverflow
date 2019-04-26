@@ -68,26 +68,26 @@ const router = new Router({
 })
 
 
-router.beforeEach((to, from, next) => {
-  // console.log(to, '=====to=======from', from);
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // console.log('masuk if atass');
-    if (!localStorage.getItem('token')) {
-      next({ path: '/' })
-    } else {
-      if (to.matched.some(record => record.meta.is_admin)) {
-        if (localStorage.getItem('role') == 'admin') {
-          next()
-        } else {
-          next({path: '/'})
-        }
-      } else {
-        next()
-      }
-    }
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   // console.log(to, '=====to=======from', from);
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     // console.log('masuk if atass');
+//     if (!localStorage.getItem('token')) {
+//       next({ path: '/' })
+//     } else {
+//       if (to.matched.some(record => record.meta.is_admin)) {
+//         if (localStorage.getItem('role') == 'admin') {
+//           next()
+//         } else {
+//           next({path: '/'})
+//         }
+//       } else {
+//         next()
+//       }
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 export default router

@@ -4,6 +4,16 @@ const jwt = require('jsonwebtoken')
 
 class UserController {
 
+    static findById(req, res) {
+        User.findById(req.authenticatedUser.id)
+        .then(data => {
+            if (data) res.status(200).json(data)
+            else res.status(404).json({msg : `No such user`})
+        })
+        .catch(err => {
+            res.status(400).json(err)
+        })
+    }
     static register(req, res) {
         console.log(req.body)
         

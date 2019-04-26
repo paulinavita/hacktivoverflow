@@ -9,6 +9,7 @@
           </v-flex>
         </v-flex>
       </v-layout>
+
       <div id="buttonpost">
         <div v-if="this.$route.name == 'ask'">
           <v-btn @click="postQuestion">Post Question</v-btn>
@@ -17,6 +18,18 @@
           <v-btn @click="editQuestion">Edit Question</v-btn>
         </div>
       </div>
+      
+    <v-flex justify-end >
+        <v-select
+          style="margin-left:40vh"
+          v-model="value"
+          :items="items"
+          attach
+          chips
+          label="Tags"
+          multiple
+        ></v-select>
+      </v-flex>
     </form>
   </v-container>
 </template>
@@ -25,11 +38,20 @@
 
 <script>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 export default {
   data() {
     return {
+      items: [
+      "javascript",
+      "backend",
+      "front-end",
+      "packages",
+      "other languange",
+      "other"
+    ],
+    value: [],
       mode: "",
       title: "",
       description: "",
@@ -52,21 +74,24 @@ export default {
           `/questions`,
           {
             title: this.title,
-            description: this.description
+            description: this.description,
+            tags: this.value,
           },
           { headers: { token: localStorage.getItem("token") } }
         )
         .then(({ data }) => {
           Swal.fire({
-            type : 'sucesss',
-            text : "Posted!"})
+            type: "sucesss",
+            text: "Posted!"
+          });
           // console.log(data, "kebuat gak?");
-          this.$router.push({name : 'dashboard'})
+          this.$router.push({ name: "dashboard" });
         })
         .catch(err => {
-           Swal.fire({
-            type : 'sucesss',
-            text : `${err.response}!`})
+          Swal.fire({
+            type: "sucesss",
+            text: `${err.response}!`
+          });
           console.log(err.err.response);
         });
     },
@@ -84,12 +109,16 @@ export default {
     },
     editQuestion() {
       this.axios
-        .patch(`/questions/edit/${this.$route.params.id}`, {
-          title : this.title,
-          description : this.description
-        }, {
-          headers: { token: localStorage.getItem("token") }
-        })
+        .patch(
+          `/questions/edit/${this.$route.params.id}`,
+          {
+            title: this.title,
+            description: this.description
+          },
+          {
+            headers: { token: localStorage.getItem("token") }
+          }
+        )
         .then(({ data }) => {
           this.$router.push(`/dashboard`);
         })

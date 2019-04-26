@@ -1,12 +1,9 @@
 <template>
-  <div 
-  v-on:update-dv="getAnswersOnThisQuestion"
-  v-on:pdate-uv="getAnswersOnThisQuestion"
-  >
+  <div>
   <v-container grid-list-xl text-xs-center>
       <v-layout row wrap>
         <v-flex mt-4 xs10 offset-xs5 offset-md2 offset-lg3>
-        <h3 >Title : {{oneQuestionDetails.title}}</h3>
+        <h3 class="mb-3">Title : {{oneQuestionDetails.title}}</h3>
           <QuestionCard :q="this.$store.state.oneQuestionDetails"></QuestionCard>
           <AnswerCard v-for="(ans, index) in this.$store.state.answersOnThisQuestion" :ans="ans" :key="index"></AnswerCard>
           <br>
@@ -40,7 +37,7 @@ export default {
     AnswerCard
   },
   created() {
-    console.log('kebuatttttt dudududu');
+    // console.log('kebuatttttt dudududu');
     
   },
   methods: {

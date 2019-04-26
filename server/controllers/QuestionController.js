@@ -4,6 +4,7 @@ class QuestionController {
     static findOne(req, res) {
         
         console.log('masuk sini/?');
+        console.log('APA ISIYA', req.params.questionId);
         
         Question.findById(req.params.questionId)
         .populate('userId')
@@ -53,6 +54,7 @@ class QuestionController {
         
         Question.create({
             ...req.body,
+            tags : req.body.tags,
             userId : req.authenticatedUser.id,
             upVotes : [],
             downVotes : []

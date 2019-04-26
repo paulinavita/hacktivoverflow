@@ -1,6 +1,6 @@
 <template>
   <v-flex>
-    <v-card flat>
+    <v-card  color="white" flat>
       <v-layout row>
         <v-flex xs1>
           <v-btn @click="upVote(q.userId)" flat icon color="pink">
@@ -28,15 +28,22 @@
       <v-layout row>
         <v-card-actions>
           <h4 class="body-1 font-italic ml-4">Asked by : {{q.userId.email.split('@')[0]}}</h4>
+          <div v-if="q.tags.length == 0">
+          <h4 class="body-1 font-italic ml-4">Tags : None</h4>
+          </div>
+          <div v-else>
+          <h4 class="body-1 font-italic ml-4">Tags : {{q.tags.join(', ')}}</h4>
+          </div>
+
           <!-- <v-btn class="ml-3" flat color="orange" v-if="this.$route.name == 'question-detail'">Reply</v-btn> -->
-          <router-link :to="{ name: 'question-detail', params: { id: q._id}}"><v-btn class="ml-3" flat color="orange" >View Thread</v-btn></router-link>
-            <router-link :to="{ name: 'edit-question', params: { id: q._id}}"><v-btn class="ml-3" flat color="orange"  v-if="this.$store.state.userId ==  q.userId._id" >Edit          </v-btn>
+          <router-link :to="{ name: 'question-detail', params: { id: q._id}}"><v-btn class="ml-3" flat color="black" >View Thread</v-btn></router-link>
+            <router-link :to="{ name: 'edit-question', params: { id: q._id}}"><v-btn class="ml-3" flat color="black"  v-if="this.$store.state.userId ==  q.userId._id " >Edit          </v-btn>
           </router-link>
           <v-btn
             @click="deleteQuestion(q._id)"
             class="ml-3"
             flat
-            color="orange"
+            color="black"
              v-if="this.$store.state.userId ==  q.userId._id" 
           >Delete</v-btn>
         </v-card-actions>
@@ -157,7 +164,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["oneQuestionDetails"])
+    ...mapState(["oneQuestionDetails", "answersOnThisQuestion"])
     // calculate() {
     //   return +this.q.upVotes.length - +this.q.downVotes.length;
     // }

@@ -1,7 +1,7 @@
 const Question = require('../models/question')
 module.exports = {
     authorizationQuestion: function (req, res, next) {
-      console.log(req, 'ISI REQ');
+      console.log(req.params, 'ISI REQ');
       
       Question.findOne({_id : req.params.questionId})
         .then(data => {
